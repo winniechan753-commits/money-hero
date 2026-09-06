@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Money Hero 理財小英雄</title>
+  <meta name="description" content="Money Hero 理財小英雄 — 香港 6–12 歲兒童理財學習 App Prototype" />
+  <style>
+    :root{
+      --green:#2f9e44;
+      --green2:#3fb950;
+      --green-dark:#1f7a35;
+      --green-soft:#eaf8ee;
+      --yellow:#ffd43b;
+      --orange:#ff922b;
+      --blue:#4dabf7;
+      --red:#ff6b6b;
+      --ink:#16211a;
+      --muted:#657168;
+      --line:#dce8df;
+      --bg:#f7fbf8;
+      --white:#fff;
+      --shadow:0 18px 50px rgba(31,122,53,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang HK","Microsoft JhengHei",sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .container{max-width:1180px;margin:0 auto;padding:0 20px}
+    header{
+      position:sticky;top:0;z-index:100;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(220,232,223,.9);
+    }
+    .nav{
+      min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--green-dark)}
+    .brand-logo{
+      width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--green),#70d887);color:#fff;font-size:23px;
+      box-shadow:0 8px 20px rgba(47,158,68,.22);
+    }
+    .links{display:flex;gap:20px;color:#405148;font-size:14px}
+    .links a:hover{color:var(--green-dark)}
+    .cta{
+      border:0;border-radius:999px;background:var(--green);color:#fff;
+      padding:11px 18px;font-weight:800;cursor:pointer;box-shadow:0 8px 22px rgba(47,158,68,.22)
+    }
+    .hero{
+      padding:72px 0 46px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,212,59,.22), transparent 25%),
+        radial-gradient(circle at 85% 10%, rgba(77,171,247,.16), transparent 28%),
+        linear-gradient(180deg,#effaf2 0%,#f7fbf8 100%);
+    }
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+      background:#fff;border:1px solid var(--line);font-size:13px;font-weight:800;color:var(--green-dark)
+    }
+    h1{font-size:clamp(42px,7vw,78px);line-height:.98;margin:18px 0 20px;letter-spacing:-2px}
+    .hero p{font-size:19px;color:var(--muted);max-width:680px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+    .btn{
+      border:0;border-radius:14px;padding:13px 18px;font-weight:800;cursor:pointer
+    }
+    .btn-primary{background:var(--green);color:#fff}
+    .btn-secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
+    .badge{
+      padding:7px 10px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:13px;color:#526158
+    }
+
+    .phone-wrap{display:flex;justify-content:center}
+    .phone{
+      width:min(370px,100%);background:#101614;border-radius:38px;padding:10px;
+      box-shadow:0 28px 70px rgba(16,22,20,.28);
+    }
+    .phone-inner{
+      background:#f6fbf7;border-radius:30px;overflow:hidden;min-height:690px;
+      display:flex;flex-direction:column;
+    }
+    .phone-top{padding:20px 20px 12px;display:flex;justify-content:space-between;align-items:center}
+    .avatar{width:42px;height:42px;border-radius:50%;background:#dff5e5;display:grid;place-items:center;font-size:22px}
+    .screen-title{font-weight:900}
+    .phone-content{padding:0 16px 18px;flex:1}
+    .balance-card{
+      border-radius:22px;padding:20px;background:linear-gradient(135deg,#2f9e44,#52b96a);color:#fff;
+      box-shadow:0 16px 34px rgba(47,158,68,.24);margin-bottom:14px
+    }
+    .balance-card small{opacity:.85}
+    .balance{font-size:34px;font-weight:900;margin:5px 0 12px}
+    .xp{height:8px;background:rgba(255,255,255,.28);border-radius:999px;overflow:hidden}
+    .xp span{display:block;height:100%;width:78%;background:#fff;border-radius:999px}
+    .jar-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+    .jar{
+      background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px
+    }
+    .jar b{display:block;margin-top:5px;font-size:18px}
+    .task{
+      background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px
+    }
+    .progress{height:8px;background:#edf2ee;border-radius:99px;overflow:hidden;margin-top:8px}
+    .progress span{display:block;height:100%;width:56%;background:var(--green);border-radius:99px}
+    .bottom-nav{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:10px 8px 12px;border-top:1px solid var(--line);background:#fff
+    }
+    .tab{
+      border:0;background:transparent;padding:7px 2px;border-radius:12px;cursor:pointer;font-size:11px;color:#6b776f
+    }
+    .tab.active{background:var(--green-soft);color:var(--green-dark);font-weight:800}
+    .tab .icon{display:block;font-size:20px;margin-bottom:2px}
+
+    section{padding:76px 0}
+    .section-head{max-width:760px;margin-bottom:30px}
+    .kicker{font-size:13px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--green-dark)}
+    h2{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:8px 0 12px}
+    .lead{color:var(--muted);font-size:18px}
+
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .card{
+      background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 8px 28px rgba(31,122,53,.05)
+    }
+    .card .big{font-size:30px}
+    .card h3{margin:8px 0 6px}
+    .card p{color:var(--muted);margin:0;font-size:14px}
+
+    .curriculum{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .level{
+      background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;position:relative;overflow:hidden
+    }
+    .level::after{
+      content:"";position:absolute;width:80px;height:80px;border-radius:50%;right:-24px;top:-24px;background:var(--green-soft)
+    }
+    .level strong{color:var(--green-dark)}
+    .level small{display:block;color:var(--muted);margin-top:4px}
+
+    .prototype{
+      background:#102016;color:#fff;
+    }
+    .prototype .lead{color:#c8d8cc}
+    .prototype-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}
+    .screen-list{display:grid;gap:9px}
+    .screen-btn{
+      text-align:left;border:1px solid #294234;background:#163021;color:#dce8df;
+      border-radius:14px;padding:12px 14px;cursor:pointer
+    }
+    .screen-btn.active{background:#2f9e44;color:white;border-color:#4bb761}
+    .demo{
+      background:#f6fbf7;color:var(--ink);border-radius:26px;padding:18px;min-height:520px
+    }
+    .demo h3{margin-top:0}
+    .demo-panel{display:none}
+    .demo-panel.active{display:block}
+    .demo-card{
+      background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin:10px 0
+    }
+    .demo-row{display:flex;justify-content:space-between;gap:14px;align-items:center}
+    .quiz-option{
+      width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;text-align:left;margin:7px 0;cursor:pointer
+    }
+    .quiz-option:hover{border-color:var(--green);background:var(--green-soft)}
+    .range-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+    input[type="range"]{width:100%;accent-color:var(--green)}
+    .toast{
+      display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--green-soft);color:var(--green-dark);font-weight:800
+    }
+
+    .business{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .price{font-size:32px;font-weight:900;margin:8px 0}
+    .check{margin:8px 0;color:#415247}
+    .highlight{border:2px solid var(--green);transform:translateY(-4px)}
+
+    .roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .phase{
+      background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px
+    }
+    .phase-number{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:900}
+
+    footer{padding:40px 0;border-top:1px solid var(--line);background:#fff;color:var(--muted)}
+    .footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}
+    @media(max-width:940px){
+      .hero-grid,.prototype-grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr 1fr}
+      .curriculum{grid-template-columns:1fr 1fr}
+      .roadmap{grid-template-columns:1fr 1fr}
+      .business{grid-template-columns:1fr}
+      .links{display:none}
+    }
+    @media(max-width:620px){
+      .cards,.curriculum,.roadmap{grid-template-columns:1fr}
+      .hero{padding-top:42px}
+      .nav .cta{display:none}
+      .footer-row{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#2f9e44">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Money Hero">
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#top">
+      <span class="brand-logo">💰</span>
+      <span>Money Hero 理財小英雄</span>
+    </a>
+    <div class="links">
+      <a href="#features">功能</a>
+      <a href="#curriculum">課程</a>
+      <a href="#prototype">Prototype</a>
+      <a href="#parents">家長版</a>
+      <a href="#business">商業模式</a>
+      <a href="#roadmap">開發路線</a>
+    </div>
+    <button class="cta" onclick="document.querySelector('#prototype').scrollIntoView()">試玩 Prototype</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">🇭🇰 專為香港 6–12 歲小學生設計</div>
+        <h1>學理財，<br>由細開始。</h1>
+        <p>Money Hero 用遊戲、任務、儲蓄目標、虛擬錢罌同模擬投資，幫小朋友建立「使、儲、分享、成長」四大金錢習慣。</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.querySelector('#prototype').scrollIntoView()">開始試玩</button>
+          <button class="btn btn-secondary" onclick="document.querySelector('#curriculum').scrollIntoView()">睇課程架構</button>
+        </div>
+        <div class="hero-badges">
+          <span class="badge">🐷 儲蓄</span>
+          <span class="badge">🎯 目標</span>
+          <span class="badge">📚 Learning</span>
+          <span class="badge">🏆 XP / Badges</span>
+          <span class="badge">🌱 虛擬投資</span>
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-inner">
+            <div class="phone-top">
+              <div>
+                <div style="font-size:12px;color:#6b776f">早晨 👋</div>
+                <div class="screen-title">小明 · Level 8</div>
+              </div>
+              <div class="avatar">🦸‍♂️</div>
+            </div>
+            <div class="phone-content" id="phoneContent">
+              <div class="balance-card">
+                <small>我的錢</small>
+                <div class="balance">HK$1,250</div>
+                <small>XP 780 / 1000</small>
+                <div class="xp"><span></span></div>
+              </div>
+              <div class="jar-grid">
+                <div class="jar">🐷 儲<b>HK$500</b></div>
+                <div class="jar">🍔 使<b>HK$400</b></div>
+                <div class="jar">❤️ 分享<b>HK$125</b></div>
+                <div class="jar">🌱 成長<b>HK$225</b></div>
+              </div>
+              <div class="task">
+                <b>📚 今日任務</b>
+                <div style="margin-top:5px">完成「利息係乜？」</div>
+                <small style="color:#2f9e44">+20 XP</small>
+              </div>
+              <div class="task">
+                <div class="demo-row"><b>🎯 新單車</b><span>56%</span></div>
+                <div style="font-size:13px;color:#6b776f">HK$560 / HK$1,000</div>
+                <div class="progress"><span></span></div>
+              </div>
+            </div>
+            <div class="bottom-nav">
+              <button class="tab active" data-phone="home"><span class="icon">🏠</span>首頁</button>
+              <button class="tab" data-phone="wallet"><span class="icon">🐷</span>錢罌</button>
+              <button class="tab" data-phone="goals"><span class="icon">🎯</span>目標</button>
+              <button class="tab" data-phone="learn"><span class="icon">📚</span>學習</button>
+              <button class="tab" data-phone="profile"><span class="icon">👤</span>我的</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Core Features</div>
+        <h2>一個真正可以落地嘅 MVP</h2>
+        <p class="lead">第一版先集中做最重要、最容易俾家長同小朋友測試嘅功能。</p>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="big">🐷</div><h3>四個錢罌</h3><p>Spend / Save / Share / Grow，建立分配零用錢習慣。</p></div>
+        <div class="card"><div class="big">🎯</div><h3>儲蓄目標</h3><p>用單車、LEGO 等具體目標學延遲滿足與計劃。</p></div>
+        <div class="card"><div class="big">📚</div><h3>短課 + Quiz</h3><p>3–5 分鐘情境學習，完成後得到 XP 同徽章。</p></div>
+        <div class="card"><div class="big">🌱</div><h3>模擬投資</h3><p>只用虛擬資金，認識現金、債券、ETF、股票與風險。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="curriculum">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">6–12 Curriculum</div>
+        <h2>由認識金錢，到投資入門</h2>
+        <p class="lead">課程按年齡同理解能力逐步解鎖，避免太早將「投資」變成炒賣遊戲。</p>
+      </div>
+      <div class="curriculum">
+        <div class="level"><strong>6–7 · Money Explorer</strong><small>港幣、價格、需要 vs 想要</small></div>
+        <div class="level"><strong>7–8 · Saving Hero</strong><small>儲蓄、目標、耐性</small></div>
+        <div class="level"><strong>8–9 · Budget Hero</strong><small>收入、預算、使 / 儲 / 分享</small></div>
+        <div class="level"><strong>9–10 · Banking Hero</strong><small>銀行、利息、電子支付</small></div>
+        <div class="level"><strong>10–11 · Growth Hero</strong><small>複利、通脹、風險</small></div>
+        <div class="level"><strong>11–12 · Investment Hero</strong><small>股票、ETF、債券、分散投資</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prototype" id="prototype">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker" style="color:#7ee297">Clickable Prototype</div>
+        <h2>試下第一版 App Flow</h2>
+        <p class="lead">左邊揀 Screen，右邊會即時切換。呢個係網站內嘅互動 Prototype。</p>
+      </div>
+      <div class="prototype-grid">
+        <div class="screen-list">
+          <button class="screen-btn active" data-demo="home">01 · Child Home</button>
+          <button class="screen-btn" data-demo="wallet">02 · Wallet</button>
+          <button class="screen-btn" data-demo="goals">03 · Savings Goals</button>
+          <button class="screen-btn" data-demo="learn">04 · Learning Hub</button>
+          <button class="screen-btn" data-demo="quiz">05 · Quiz</button>
+          <button class="screen-btn" data-demo="invest">06 · Virtual Investment</button>
+          <button class="screen-btn" data-demo="parent">07 · Parent Dashboard</button>
+        </div>
+
+        <div class="demo">
+          <div class="demo-panel active" id="demo-home">
+            <h3>🏠 Child Home</h3>
+            <div class="demo-card"><div class="demo-row"><b>小明 · Level 8</b><span>🦸‍♂️</span></div><div style="font-size:30px;font-weight:900;color:#2f9e44;margin-top:8px">HK$1,250</div><small>XP 780 / 1000</small></div>
+            <div class="jar-grid">
+              <div class="jar">🐷 儲<b>HK$500</b></div><div class="jar">🍔 使<b>HK$400</b></div>
+              <div class="jar">❤️ 分享<b>HK$125</b></div><div class="jar">🌱 成長<b>HK$225</b></div>
+            </div>
+          </div>
+
+          <div class="demo-panel" id="demo-wallet">
+            <h3>🐷 我的錢罌</h3>
+            <div class="demo-card">
+              <b>本星期零用錢：HK$100</b>
+              <p>拖動滑桿分配：</p>
+              <div class="range-label"><span>🍔 使</span><span id="spendVal">40</span></div>
+              <input type="range" id="spend" min="0" max="100" value="40">
+              <div class="range-label"><span>🐷 儲</span><span id="saveVal">40</span></div>
+              <input type="range" id="save" min="0" max="100" value="40">
+              <div class="range-label"><span>❤️ 分享</span><span id="shareVal">10</span></div>
+              <input type="range" id="share" min="0" max="100" value="10">
+              <div class="range-label"><span>🌱 成長</span><span id="growVal">10</span></div>
+              <input type="range" id="grow" min="0" max="100" value="10">
+              <div style="margin-top:14px"><b>總數：HK$<span id="totalVal">100</span></b></div>
+              <div id="walletToast" class="toast"></div>
+              <button class="btn btn-primary" style="margin-top:12px" onclick="confirmWallet()">確認分配</button>
+            </div>
+          </div>
+
+          <div class="demo-panel" id="demo-goals">
+            <h3>🎯 我的目標</h3>
+            <div class="demo-card">
+              <div class="demo-row"><b>🚲 新單車</b><span>56%</span></div>
+              <div style="color:#657168">HK$560 / HK$1,000</div>
+              <div class="progress"><span></span></div>
+            </div>
+            <div class="demo-card">
+              <div class="demo-row"><b>🎮 LEGO</b><span>53%</span></div>
+              <div style="color:#657168">HK$200 / HK$380</div>
+              <div class="progress"><span style="width:53%"></span></div>
+            </div>
+            <button class="btn btn-primary" onclick="alert('Prototype：新增目標流程可在 MVP 下一步接資料庫。')">+ 建立新目標</button>
+          </div>
+
+          <div class="demo-panel" id="demo-learn">
+            <h3>📚 Learning Hub</h3>
+            <div class="demo-card">✅ 金錢係乜？</div>
+            <div class="demo-card">✅ 需要 vs 想要</div>
+            <div class="demo-card">✅ 點解要儲錢？</div>
+            <div class="demo-card" style="border-color:#2f9e44">▶ 預算係乜？ <button class="btn btn-primary" style="float:right;padding:7px 12px" onclick="showDemo('quiz')">開始</button></div>
+            <div class="demo-card" style="opacity:.55">🔒 銀行點運作？</div>
+          </div>
+
+          <div class="demo-panel" id="demo-quiz">
+            <h3>🧠 Quiz</h3>
+            <p>你有 HK$100，想買一件 HK$300 玩具。最好做法係？</p>
+            <button class="quiz-option" onclick="quizAnswer(false)">A. 即刻借錢</button>
+            <button class="quiz-option" onclick="quizAnswer(true)">B. 每星期儲 HK$50</button>
+            <button class="quiz-option" onclick="quizAnswer(false)">C. 用晒所有零用錢</button>
+            <button class="quiz-option" onclick="quizAnswer(false)">D. 希望投資三日變 HK$300</button>
+            <div id="quizToast" class="toast"></div>
+          </div>
+
+          <div class="demo-panel" id="demo-invest">
+            <h3>🌱 成長投資</h3>
+            <div class="demo-card"><small>虛擬資金</small><div style="font-size:30px;font-weight:900">HK$10,000</div></div>
+            <div class="demo-card">💵 現金 30%</div>
+            <div class="demo-card">🏦 債券 20%</div>
+            <div class="demo-card">🌍 ETF 30%</div>
+            <div class="demo-card">📈 股票 20%</div>
+            <div class="toast" style="display:block">⚠️ 呢個係學習模擬，並非真實投資。</div>
+          </div>
+
+          <div class="demo-panel" id="demo-parent">
+            <h3>👨‍👩‍👦 家長中心</h3>
+            <div class="demo-card"><b>小明 · Level 8</b></div>
+            <div class="demo-card"><div class="demo-row"><span>零用錢</span><b>HK$100</b></div></div>
+            <div class="demo-card"><div class="demo-row"><span>儲蓄率</span><b>40% ↑</b></div></div>
+            <div class="demo-card"><div class="demo-row"><span>Learning</span><b>4 / 5</b></div></div>
+            <div class="demo-card"><div class="demo-row"><span>Quiz</span><b>82%</b></div></div>
+            <button class="btn btn-primary" onclick="alert('Prototype：新增任務')">+ 新增任務</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="parents">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Parent Mode</div>
+        <h2>家長睇到進度，但唔需要監控每一步</h2>
+        <p class="lead">家長可以設定零用錢、任務同獎勵，亦可以查看學習進度、儲蓄率同 Quiz 成績。</p>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="big">💵</div><h3>Allowance</h3><p>設定每週零用錢及虛擬分配。</p></div>
+        <div class="card"><div class="big">✅</div><h3>Tasks</h3><p>建立家務或學習任務，可用 XP 或虛擬零用錢獎勵。</p></div>
+        <div class="card"><div class="big">📊</div><h3>Progress</h3><p>查看儲蓄率、課程完成率與學習表現。</p></div>
+        <div class="card"><div class="big">🔐</div><h3>Safety</h3><p>小朋友不需要 Email，敏感操作放在 Parent Gate 後面。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="business">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Business Model</div>
+        <h2>免費入門，家庭與學校升級</h2>
+      </div>
+      <div class="business">
+        <div class="card">
+          <h3>Free</h3><div class="price">HK$0</div>
+          <div class="check">✓ 基礎錢罌</div><div class="check">✓ 3 個儲蓄目標</div><div class="check">✓ 基礎課程</div>
+        </div>
+        <div class="card highlight">
+          <h3>Family Premium</h3><div class="price">HK$38<small style="font-size:14px"> / 月</small></div>
+          <div class="check">✓ 完整課程</div><div class="check">✓ 模擬投資</div><div class="check">✓ 家長進階報告</div><div class="check">✓ 多名小朋友帳戶</div>
+        </div>
+        <div class="card">
+          <h3>School / NGO</h3><div class="price">按學生數</div>
+          <div class="check">✓ 教師 Dashboard</div><div class="check">✓ 班級管理</div><div class="check">✓ 課程指派</div><div class="check">✓ 學習報告</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">Development Roadmap</div>
+        <h2>由網站 Prototype 到 App Store</h2>
+      </div>
+      <div class="roadmap">
+        <div class="phase"><div class="phase-number">1</div><h3>Prototype</h3><p>網站互動版、使用流程、家長與小朋友測試。</p></div>
+        <div class="phase"><div class="phase-number">2</div><h3>MVP</h3><p>React Native + Supabase，加入登入、資料庫、Goals、Learning。</p></div>
+        <div class="phase"><div class="phase-number">3</div><h3>Testing</h3><p>家長、小學生、學校測試，調整 UX、內容同安全設計。</p></div>
+        <div class="phase"><div class="phase-number">4</div><h3>Launch</h3><p>iOS / Android 打包、Store listing、訂閱與正式營運。</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div><strong>Money Hero 理財小英雄</strong><br><small>MVP Website Prototype</small></div>
+    <div>學理財 · 識計劃 · 創未來</div>
+  </div>
+</footer>
+
+<script>
+  const phoneScreens = {
+    home: `
+      <div class="balance-card"><small>我的錢</small><div class="balance">HK$1,250</div><small>XP 780 / 1000</small><div class="xp"><span></span></div></div>
+      <div class="jar-grid"><div class="jar">🐷 儲<b>HK$500</b></div><div class="jar">🍔 使<b>HK$400</b></div><div class="jar">❤️ 分享<b>HK$125</b></div><div class="jar">🌱 成長<b>HK$225</b></div></div>
+      <div class="task"><b>📚 今日任務</b><div style="margin-top:5px">完成「利息係乜？」</div><small style="color:#2f9e44">+20 XP</small></div>
+      <div class="task"><div class="demo-row"><b>🎯 新單車</b><span>56%</span></div><div style="font-size:13px;color:#6b776f">HK$560 / HK$1,000</div><div class="progress"><span></span></div></div>`,
+    wallet: `<h3>🐷 我的錢罌</h3><div class="task">🍔 使 <b style="float:right">HK$40</b></div><div class="task">🐷 儲 <b style="float:right">HK$40</b></div><div class="task">❤️ 分享 <b style="float:right">HK$10</b></div><div class="task">🌱 成長 <b style="float:right">HK$10</b></div>`,
+    goals: `<h3>🎯 我的目標</h3><div class="task"><b>🚲 新單車</b><div>HK$560 / HK$1,000</div><div class="progress"><span></span></div></div><div class="task"><b>🎮 LEGO</b><div>HK$200 / HK$380</div><div class="progress"><span style="width:53%"></span></div></div>`,
+    learn: `<h3>📚 學習中心</h3><div class="task">✅ 金錢係乜？</div><div class="task">✅ 需要 vs 想要</div><div class="task">▶ 預算係乜？</div><div class="task" style="opacity:.55">🔒 利息係乜？</div>`,
+    profile: `<h3>👤 我的成就</h3><div class="task"><b>Level 8</b><div>XP 780 / 1000</div></div><div class="task">🏅 Saving Starter</div><div class="task">🎯 Goal Getter</div><div class="task">📚 Quiz Master</div>`
+  };
+
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('phoneContent').innerHTML = phoneScreens[btn.dataset.phone];
+    });
+  });
+
+  function showDemo(name){
+    document.querySelectorAll('.demo-panel').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.screen-btn').forEach(x=>x.classList.remove('active'));
+    const p = document.getElementById('demo-'+name);
+    if(p) p.classList.add('active');
+    const b = document.querySelector('.screen-btn[data-demo="'+name+'"]');
+    if(b) b.classList.add('active');
+  }
+  document.querySelectorAll('.screen-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>showDemo(btn.dataset.demo));
+  });
+
+  const ids=['spend','save','share','grow'];
+  ids.forEach(id=>{
+    document.getElementById(id).addEventListener('input',()=>{
+      document.getElementById(id+'Val').textContent=document.getElementById(id).value;
+      const total=ids.reduce((s,x)=>s+Number(document.getElementById(x).value),0);
+      document.getElementById('totalVal').textContent=total;
+    });
+  });
+  function confirmWallet(){
+    const total=ids.reduce((s,x)=>s+Number(document.getElementById(x).value),0);
+    const t=document.getElementById('walletToast');
+    t.style.display='block';
+    if(total===100){
+      t.textContent='🎉 分配成功！總數正好 HK$100。';
+      t.style.background='#eaf8ee';t.style.color='#1f7a35';
+    }else{
+      t.textContent='⚠️ 總數要等於 HK$100，而家係 HK$'+total+'。';
+      t.style.background='#fff4e6';t.style.color='#c45b00';
+    }
+  }
+  function quizAnswer(correct){
+    const t=document.getElementById('quizToast');
+    t.style.display='block';
+    if(correct){
+      t.textContent='🎉 答啱！每星期儲 HK$50，可以有計劃咁達成目標。+10 XP';
+      t.style.background='#eaf8ee';t.style.color='#1f7a35';
+    }else{
+      t.textContent='再諗下：重點係有計劃咁儲錢，而唔係靠借錢或者短期投機。';
+      t.style.background='#fff4e6';t.style.color='#c45b00';
+    }
+  }
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./sw.js");
+  });
+}
+</script>
+
+</body>
+</html>

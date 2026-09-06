@@ -1,0 +1,25 @@
+{
+  "name": "Money Hero 理財小英雄",
+  "short_name": "Money Hero",
+  "description": "香港 6–12 歲兒童理財學習 App Prototype",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7fbf8",
+  "theme_color": "#2f9e44",
+  "lang": "zh-HK",
+  "icons": [
+    {
+      "src": "./assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
